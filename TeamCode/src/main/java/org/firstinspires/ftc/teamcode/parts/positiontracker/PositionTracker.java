@@ -192,10 +192,10 @@ public class PositionTracker extends RobotPart {
 		T265Camera.CameraUpdate up = slamera.getLastReceivedCameraUpdate();
 		if (up == null) return;
 		Pose2d update = up.pose;
-		slamraPosition = new Pose2d(update.getX() + ((PositionTrackerSettings) settings).emmetFieldOffset.X,
-				update.getY() + ((PositionTrackerSettings) settings).emmetFieldOffset.Y,
-				(update.getHeading() + Math.toRadians(90))
-		);
+//		slamraPosition = new Pose2d(update.getX() + ((PositionTrackerSettings) settings).emmetFieldOffset.X,
+//				update.getY() + ((PositionTrackerSettings) settings).emmetFieldOffset.Y,
+//				(update.getHeading() + Math.toRadians(90))
+//		);
 
 		//LK test code
 		slamraRawPose = new Position(update.getX(), update.getY(), Math.toDegrees(update.getHeading()));
@@ -230,7 +230,7 @@ public class PositionTracker extends RobotPart {
 	}
 
 	// run this once at start after getting first robot pose
-	void setSlamraFieldOffset() {
+	public void setSlamraFieldOffset() {
 		double fX, fY, fR, rX, rY, rR, sR;
 		if (slamraFieldStart == null) {
 			fX = slamraRobotPose.X;
@@ -268,6 +268,19 @@ public class PositionTracker extends RobotPart {
 		slamraFinal.R = rR + oR;
 	}
 //end LK test
+
+	public void autoInitPT(){
+		if (((PositionTrackerSettings) settings).useSlamra) {
+			updateSlamraPosition();
+			currentPosition.X = slamraFinal.X;
+			currentPosition.Y = slamraFinal.Y;
+			currentPosition.R = slamraFinal.R;
+			robot.addTelemetry("slamra field offset", slamraFieldOffset.toString());
+			robot.addTelemetry("slamra raw position", slamraRawPose.toString());
+			robot.addTelemetry("slamra robot offset", slamraRobotPose.toString());
+			robot.addTelemetry("slamra final pos   ", slamraFinal.toString());
+		}
+	}
 
 	public void DrawOnDashboard  (Position pos, Canvas field) {
 		field.clear();

@@ -23,6 +23,10 @@ public class Robot {
     boolean useDashboard = true;
     boolean useTelemetry = true;
 
+    public boolean isAnnaBot = false;
+    public boolean isAuto = false;
+    public boolean isAutoBlue = true;
+
     public LinearOpMode opMode;
     public HardwareMap hardwareMap;
     public Gamepad gamepad1;

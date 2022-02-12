@@ -27,6 +27,8 @@ public class AnnaBlueWH extends LinearOpMode {
     MoveToPosSettings losePos;
     Vision vision;
     MoveToPosSettings defaultPos;
+    Position fieldStartPos;
+
     @Override
     public void runOpMode() {
         robot = new Robot(this);
@@ -46,7 +48,7 @@ public class AnnaBlueWH extends LinearOpMode {
         Position pipeLineUpInsidePos = new Position(40, 65, 0);
         Position startCheeseRunPos = new Position(48, 58, 0);
         Position deepInCheesePos = new Position(58, 58, 0);
-        Position fieldStartPos = new Position(9.5, 60, 90);
+        fieldStartPos = new Position(9.5, 60, 90);
         Position finalPark = new Position(42, 41, 0);
         Position lowDumpWall = new Position(fieldStartPos.X, fieldStartPos.Y - 8, fieldStartPos.R);
         Position midDumpForward = new Position(midDumpPos.X + 4, midDumpPos.Y + 4, midDumpPos.R);
@@ -61,6 +63,12 @@ public class AnnaBlueWH extends LinearOpMode {
         Task autoTask = new Task();
         intake.isAutonomous = false;
 
+        robot.isAnnaBot = true;
+        robot.isAuto = true;
+        robot.isAutoBlue = true;
+
+        setAutonomousVariables();
+
         //autoTask.addStep(() -> {((Intake) robot.getPartByClass(Intake.class)).pause(false);});
 
 
@@ -69,10 +77,13 @@ public class AnnaBlueWH extends LinearOpMode {
          *****************************************/
         robot.init();
         vision.start();
+        pt.start();
         while (!opModeIsActive()) {
             vision.onRunLoop((short) 1);
             vision.duckPos();
+            pt.autoInitPT();
             robot.sendTelemetry();
+            if (robot.gamepad1.x) pt.setSlamraFieldOffset();
             sleep(50);
         }
 
@@ -169,5 +180,10 @@ public class AnnaBlueWH extends LinearOpMode {
             robot.sendTelemetry();
         }
         robot.stop();
+    }
+
+    void setAutonomousVariables() {
+        robot.isAutoBlue = true;
+        fieldStartPos = new Position(9.5, 60, 90);
     }
 }
