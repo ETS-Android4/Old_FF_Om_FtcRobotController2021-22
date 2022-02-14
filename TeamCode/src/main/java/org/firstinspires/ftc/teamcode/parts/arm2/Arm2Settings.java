@@ -64,7 +64,7 @@ public class Arm2Settings extends RobotPartSettings {
 	//speed
 	int armMotorMovementSpeed = 1;
 	//limits
-	int armMotorMinPos = 0;
+	int armMotorMinPos = -99999; //0;
 	int armMotorMaxPos = 3617;
 	//arm presets    pickup lift    bottom   middle top
 	int[] armPresets = {0,     0,     0,      550,  1130};

@@ -16,6 +16,7 @@ public class DriveSettings extends RobotPartSettings {
         InputSupplier driveYSupplier = new InputSupplier(gamepad -> (-gamepad.left_stick_y), gamepadNum);
         InputSupplier driveRSupplier = new InputSupplier(gamepad -> (gamepad.right_stick_x), gamepadNum);
         InputSupplier driveStopSupplier = new InputSupplier(gamepad -> (gamepad.x), gamepadNum);
+        InputSupplier driveSpeedSupplier = new InputSupplier(gamepad -> ((gamepad.left_bumper) ? 0.25 : (gamepad.right_bumper) ? 1 : 0.6), Utils.GamepadNum.ONE);
 
     //other
     public DriveMode driveMode = DriveMode.MECANUM;
