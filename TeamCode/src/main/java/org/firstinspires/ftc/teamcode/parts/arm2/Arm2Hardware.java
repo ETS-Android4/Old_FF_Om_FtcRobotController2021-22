@@ -4,6 +4,7 @@ import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -31,6 +32,7 @@ public class Arm2Hardware extends RobotPartHardware {
 	Servo capServo;
 	Servo keyServo;
 	DistanceSensor bucketRange;
+	DigitalChannel armLimit;
 
 	@Override
 	public void onInit(Robot robot) {
@@ -40,5 +42,6 @@ public class Arm2Hardware extends RobotPartHardware {
 		capServo = capServoSettings.makeServo(robot.hardwareMap);
 		keyServo = keyServoSettings.makeServo(robot.hardwareMap);
 		bucketRange = robot.hardwareMap.get(DistanceSensor.class, "range1");
+		armLimit = robot.hardwareMap.get(DigitalChannel.class, "limit1");
 	}
 }
