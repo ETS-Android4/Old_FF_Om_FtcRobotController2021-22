@@ -83,7 +83,7 @@ public class Arm2 extends RobotPart {
 				armMotorOffset = ((Arm2Hardware) hardware).armMotor.getCurrentPosition();
 			}
 
-			//This happens after triggers evaluated but before preset requests are applied.
+			/* //This happens after triggers evaluated but before preset requests are applied.
 			//Rev limit switch reads false when pressed.
 			if (!((Arm2Hardware) hardware).armLimit.getState()) {
 				//Zero out armMotorPos to not request additional negative movement (OK to be requesting up)
@@ -109,7 +109,7 @@ public class Arm2 extends RobotPart {
 			else {
 				//Clear the flag
 				limitPressed = false;
-			}
+			}  */
 
 			short armPreset = (short) ((Arm2Settings) settings).armPresetSupplier.getInt();
 			armPreset--;
